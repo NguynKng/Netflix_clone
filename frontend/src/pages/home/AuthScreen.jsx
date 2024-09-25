@@ -18,9 +18,15 @@ const AuthScreen = () => {
                     <Link to='/'>
                         <img src="/netflix-logo.png" alt="Netflix Logo" className="w-32 md:w-40" />
                     </Link>
-                    <Link to="/login" className="text-white bg-red-600 py-1 px-3 rounded">
-                        Sign In
-                    </Link>
+                    <div className="flex sm:flex-row flex-col gap-4">
+                        <select className="max-w-40 px-3 py-1 bg-black text-white border rounded-md border-gray-700 focus:border-white focus:border-2">
+                            <option value="vi" className="bg-white text-black">Tiếng Việt</option>
+                            <option value="en" className="bg-white text-black">English</option>
+                        </select>
+                        <Link to="/login" className="text-center text-white bg-red-600 py-1 px-3 rounded">
+                            Sign In
+                        </Link>
+                    </div>
                 </header>
 
                 <div className="flex flex-col items-center justify-center text-center py-20 px-3 max-w-md md:max-w-3xl mx-auto gap-6 text-white">

@@ -10,15 +10,11 @@ const SignupPage = () => {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [email, setEmail] = useState(emailValue || "")
     const [username, setUsername] = useState("")
-    //const navigate = useNavigate()
-    const { signup } = useAuthStore()
+    const { signup, isSigningUp } = useAuthStore()
 
     const handleSignUp = async (e) => {
         e.preventDefault()
-        //console.log(username, password, email)
-
         signup({username, password, email, confirmPassword})
-        //navigate('/login')
     }
 
     return (
@@ -82,8 +78,8 @@ const SignupPage = () => {
                                 {message}
                             </div>
                         )}*/}
-                        <button className="w-full py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md">
-                            Sign Up
+                        <button className="w-full py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md" disabled={isSigningUp}>
+                            {isSigningUp ? "Loading..." : "Sign Up"}
                         </button>
                     </form>
                     <div className="text-center text-gray-400">

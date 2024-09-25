@@ -48,7 +48,7 @@ const useAuthStore = create((set) => ({
             set({user:response.data.user, isCheckingAuth:false})
         } catch (error) {
             set({isCheckingAuth:false, user:null})
-            toast.error(error.response.data.message || "An error occurred")
+            console.log(error.response.data.message || "An error occurred!")
         }
     }
 }))

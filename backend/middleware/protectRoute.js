@@ -4,7 +4,6 @@ const User = require('../models/user')
 
 const protectRoute = async (req, res, next) => {
     try {
-
         const token = req.cookies["jwt-netflix"]
         if (!token) {
             return res.status(401).json({ message: 'Not authorized, token not found.', success: false })

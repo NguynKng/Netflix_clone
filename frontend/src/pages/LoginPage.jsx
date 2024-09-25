@@ -5,7 +5,7 @@ import useAuthStore from "../store/authUser"
 const LoginPage = () => {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
-    const { login } = useAuthStore()
+    const { login, isLoggingIn } = useAuthStore()
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -53,8 +53,8 @@ const LoginPage = () => {
                                 {message}
                             </div>
                         )}*/}
-                        <button className="w-full py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md">
-                            Login
+                        <button className="w-full py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md" disabled={isLoggingIn}>
+                            {isLoggingIn ? "Loading..." : "Login"}
                         </button>
                     </form>
                     <div className="text-center text-gray-400">
