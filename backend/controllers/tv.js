@@ -55,10 +55,34 @@ const getTVShowByCategory = async (req, res) => {
     }
 }
 
+const getTVShowCredit = async (req,res) => {
+    try {
+        const { id } = req.params
+        const data = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${id}/credits?language=en-US`)
+        return res.status(200).json({content: data, success: true})
+    } catch (error) {
+        console.error("Error fetching credit movies:", error.message)
+        return res.status(500).json({message: 'Internal server error', success: false})
+    }
+}
+
+const getTVShowEpisode = async (req,res) => {
+    try {
+        const { id, season_number } = req.params
+        const data = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${id}/season/${season_number}?language=en-US`)
+        return res.status(200).json({content: data, success: true})
+    } catch (error) {
+        console.error("Error fetching episode movies:", error.message)
+        return res.status(500).json({message: 'Internal server error', success: false})
+    }
+}
+
 module.exports = { 
     getSimilarTVShow,
     getTVShowByCategory,
     getTrendingTVShow,
     getTVShowDetail,
     getTVShowTrailer,
+    getTVShowCredit,
+    getTVShowEpisode
 }

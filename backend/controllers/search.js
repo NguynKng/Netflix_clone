@@ -9,7 +9,7 @@ const searchContent = async (req, res) => {
         if (!listContent.includes(content))
             return res.status(400).json({ message: 'Invalid content type', success: false })
 
-        const data = await fetchFromTMDB(`https://api.themoviedb.org/3/search/${content}?query=${query}&include_adult=false&language=en-US&page=1`)
+        let data = await fetchFromTMDB(`https://api.themoviedb.org/3/search/${content}?query=${query}&include_adult=false&language=en-US&page=1`)
 
         if (data.results.length === 0)
             return res.status(404).json({ message: 'No results found', success: false })
@@ -20,10 +20,10 @@ const searchContent = async (req, res) => {
             title = data.results[0].name
             image = data.results[0].profile_path
         }else if(content == 'movie'){
-            title = data.results[0].original_title
+            title = data.results[0].title
             image = data.results[0].poster_path
         }else if(content == 'tv'){
-            title = data.results[0].original_name
+            title = data.results[0].name
             image = data.results[0].poster_path
         }
 
@@ -52,10 +52,26 @@ const getSearchHistory = (req, res) => {
     })
 }
 
+const removeAllHistory = async (req, res) => {
+    try {
+        await User.findByIdAndUpdate(req.user._id, {
+            SearchHistory: [] // Xóa toàn bộ mảng SearchHistory
+        })
+        return res.status(200).json({ message: 'All history removed successfully', success: true })
+    } catch (error) {
+        console.error("Error removing all history:", error.message)
+        return res.status(500).json({ message: 'Internal server error', success: false })
+    }
+}
+
 const removeHistoryById = async (req, res) => {
     const { id } = req.params
     try {
-        const existingHistory = req.user.SearchHistory.find(history => history.id === id);
+        const existingHistory = await User.find({
+            SearchHistory: {
+                $elemMatch: { id: id } // Tìm một phần tử trong mảng có id bằng id
+            }
+        });
         if(!existingHistory)
             return res.status(404).json({ message: 'History not found', success: false })
 
@@ -72,4 +88,4 @@ const removeHistoryById = async (req, res) => {
     }
 }
 
-module.exports = { searchContent, getSearchHistory, removeHistoryById }
+module.exports = { searchContent, getSearchHistory, removeHistoryById, removeAllHistory }

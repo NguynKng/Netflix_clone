@@ -2,7 +2,7 @@ const User = require('../models/user')
 const bcryptjs = require('bcryptjs')
 const generateTokenAndSetCookie = require('../utils/generateToken')
 
-const signup = async (req, res) => { 
+const signup = async (req, res) => {
     try {
         const { username, password, email, confirmPassword } = req.body
         if (!username || !password || !email || !confirmPassword)
@@ -44,10 +44,12 @@ const signup = async (req, res) => {
         })
 
         generateTokenAndSetCookie(newUser._id, res)
+
         await newUser.save()
-        return res.status(201).json({success: true, user: {
-            ...newUser._doc,
-        }})
+        return res.status(201).json({
+            success: true, 
+            user: {...newUser._doc,},
+        })
 
     } catch (error) {
         console.error("Error in signup controller:", error.message)
@@ -61,14 +63,18 @@ const login = async (req, res) => {
         const user = await User.findOne({email: email})
         
         if (!user)
-            return res.status(404).json({success: false, message: 'Invalid credentials'})
+            return res.status(400).json({success: false, message: 'Invalid username or password'})
         
         const isPasswordCorrect = await bcryptjs.compare(password, user.password)
         if(!isPasswordCorrect)
-            return res.status(400).json({success: false, message: "Invalid credentials"})
+            return res.status(400).json({success: false, message: "Invalid username or password"})
         
         generateTokenAndSetCookie(user._id, res)
-        return res.status(200).json({success: true, message: "Logged in successfully.", user: {...user._doc}})
+
+        return res.status(200).json({
+            success: true,  
+            user: {...user._doc}, 
+        })
     } catch (error) {
         console.error("Error in login controller:", error.message)
         return res.status(500).json({message:'Internal server error', success: false})

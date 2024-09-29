@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { LogOut, Menu, Search } from "lucide-react";
+import { Bell, LogOut, Menu, Search } from "lucide-react";
 import useAuthStore from "../store/authUser";
 import useContentStore from '../store/content'
 
@@ -28,12 +28,14 @@ const Navbar = () => {
                     <Link to="/" className="hover:underline hover:underline-offset-4" onClick={() => setContentType("movie")}>Movies</Link>
                     <Link to="/" className="hover:underline hover:underline-offset-4">Recently Added</Link>
                     <Link to="/" className="hover:underline hover:underline-offset-4">My List</Link>
+                    <Link to="/history" className="hover:underline hover:underline-offset-4">Search History</Link>
                 </div>
             </div>
             <div className="flex items-center gap-2 z-50 ">
                 <Link to="/search">
                     <Search />
                 </Link>
+                <Bell className="text-white fill-white" />
                 <img src={user.image} alt="Avatar" className="h-8 rounded cursor-pointer"/>
                 <LogOut className="cursor-pointer text-red-500" onClick={logout} />
             </div>
@@ -43,10 +45,11 @@ const Navbar = () => {
             {isMobileMenuOpen && (
             <div className="w-full sm:hidden mt-4 z-50 bg-transparent/30 border rounded border-gray-800">
                 <Link to="/" className="hover:underline hover:underline-offset-4 block">Home</Link>
-                <Link to="/" className="hover:underline hover:underline-offset-4 block" onClick={() => setContentType("TV")}>TV Shows</Link>
-                <Link to="/" className="hover:underline hover:underline-offset-4 block" onClick={() => setContentType("Movie")}>Movies</Link>
+                <Link to="/" className="hover:underline hover:underline-offset-4 block" onClick={() => setContentType("tv")}>TV Shows</Link>
+                <Link to="/" className="hover:underline hover:underline-offset-4 block" onClick={() => setContentType("movie")}>Movies</Link>
                 <Link to="/" className="hover:underline hover:underline-offset-4 block">Recently added</Link>
                 <Link to="/" className="hover:underline hover:underline-offset-4 block">My List</Link>
+                <Link to="/history" className="hover:underline hover:underline-offset-4">My List</Link>
             </div>
             )}
         </header>

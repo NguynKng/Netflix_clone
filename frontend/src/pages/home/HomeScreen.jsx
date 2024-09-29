@@ -6,7 +6,7 @@ import useGetTrendingContent from "../../hooks/useGetTrendingContent";
 import useContentStore from "../../store/content.js";
 import MovieSlider from "../../components/MovieSlider.jsx";
 import { useState } from "react";
-import { formatReleaseDate } from "../../utils/dateFunction.js";
+import { formatReleaseDate } from "../../utils/formattedFunction";
 
 const HomeScreen = () => {
     const { trendingContent } = useGetTrendingContent()
@@ -51,7 +51,7 @@ const HomeScreen = () => {
                             <Link to={`/watch/${trendingContent.id}`} className="flex bg-white items-center rounded-lg hover:bg-white/80 text-black font-bold py-2 px-4 gap-2">
                                 <Play className="fill-black" />Play
                             </Link>
-                            <Link to="#" className="flex bg-gray-600 items-center rounded-lg hover:bg-gray-800 text-white py-2 px-4 gap-2">
+                            <Link to={`/watch/${trendingContent.id}`}className="flex bg-gray-600 items-center rounded-lg hover:bg-gray-800 text-white py-2 px-4 gap-2">
                                 <CircleAlert />More info
                             </Link>
                         </div>

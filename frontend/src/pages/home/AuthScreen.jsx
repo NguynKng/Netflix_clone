@@ -48,7 +48,7 @@ const AuthScreen = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        <button className="flex items-center justify-center p-4 self-center bg-red-600 rounded-md md:text-2xl text-xl font-bold">
+                        <button className="flex items-center justify-center p-4 self-center bg-red-600 rounded-md md:text-2xl text-xl font-bold hover:bg-red-800">
                             Get Started
                             <ChevronRight className="ml-2" />
                         </button>

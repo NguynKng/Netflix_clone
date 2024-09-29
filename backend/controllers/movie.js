@@ -55,10 +55,23 @@ const getMoviesByCategory = async (req, res) => {
     }
 }
 
+const getMovieCredit = async (req, res) => {
+    try {
+        const { id } = req.params
+        const data = await fetchFromTMDB(`https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`)
+        return res.status(200).json({content: data, success: true})
+    } catch (error) {
+        console.error("Error fetching movie credit:", error.message)
+        return res.status(500).json({message: 'Internal server error', success: false})
+    }
+}
+
 module.exports = { 
     getTrendingMovie,
     getMovieTrailer, 
     getMovieDetail, 
     getSimilarMovies,
-    getMoviesByCategory
+    getMoviesByCategory,
+    getMovieCredit,
+ 
 }

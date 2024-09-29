@@ -53,7 +53,7 @@ const SearchPage = () => {
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder={`Search for a ${activeTab === "tv" ? "TV Show" : activeTab.charAt(0).toUpperCase() + activeTab.slice(1) }`}
+                        placeholder={`Search a ${activeTab === "tv" ? "TV Show" : activeTab.charAt(0).toUpperCase() + activeTab.slice(1) }...`}
                         className="w-full p-3 rounded bg-gray-800 text-white"
                         autoFocus
                     />
@@ -74,7 +74,7 @@ const SearchPage = () => {
                                     </div>
                                     <h2 className="mt-2 text-white text-center text-2xl font-bold group-hover:text-gray-600">{result?.title || result?.name}</h2>
                                 </Link>
-                                {activeTab != "person" ? <h2 className="text-center mt-2">Release: {result?.release_date?.split("-")[0] || result?.first_air_date?.split("-")[0]}</h2> : ""}
+                                {activeTab != "person" ? <h2 className="text-center mt-2">{result?.release_date?.split("-")[0] || result?.first_air_date?.split("-")[0]}</h2> : ""}
                             </div>
                         )
                     })}
